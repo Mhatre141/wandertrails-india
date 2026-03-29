@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WanderTrails India – India's Road Less Travelled</title>
+<meta name="description" content="Discover offbeat, lesser-known destinations across India with WanderTrails India. Hidden valleys, ancient ruins, and untouched coastlines await."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET & BASE ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:#fdf6ef;color:#2b2015;overflow-x:hidden}
+img{display:block;width:100%;height:100%;object-fit:cover}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+
+/* ── COLOUR TOKENS ── */
+:root{
+  --saffron:#e07b2a;
+  --saffron-dark:#c4651a;
+  --teal:#1e6b6b;
+  --teal-light:#2a8a8a;
+  --cream:#fdf6ef;
+  --sand:#f0e4d0;
+  --forest:#2d5a27;
+  --charcoal:#2b2015;
+  --warm-grey:#7a6a5a;
+  --white:#ffffff;
+  --radius:16px;
+  --shadow:0 8px 40px rgba(43,32,21,.13);
+  --shadow-hover:0 20px 60px rgba(43,32,21,.22);
+  --nav-height:72px;
+}
+
+/* ── UTILITY ── */
+.container{max-width:1260px;margin:0 auto;padding:0 24px}
+.section-label{font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--saffron);margin-bottom:12px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;line-height:1.18;color:var(--charcoal);margin-bottom:16px}
+.section-sub{font-size:1.05rem;line-height:1.7;color:var(--warm-grey);max-width:560px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;background:var(--saffron);color:#fff;border-radius:50px;font-weight:600;font-size:.95rem;transition:background .25s,transform .2s,box-shadow .25s}
+.btn-primary:hover{background:var(--saffron-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(224,123,42,.4)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border:2px solid rgba(255,255,255,.7);color:#fff;border-radius:50px;font-weight:600;font-size:.95rem;transition:background .25s,transform .2s}
+.btn-outline:hover{background:rgba(255,255,255,.15);transform:translateY(-2px)}
+.btn-teal{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;background:var(--teal);color:#fff;border-radius:50px;font-weight:600;font-size:.9rem;transition:background .25s,transform .2s,box-shadow .25s}
+.btn-teal:hover{background:var(--teal-light);transform:translateY(-2px);box-shadow:0 8px 28px rgba(30,107,107,.35)}
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .7s ease,transform .7s ease}
+.reveal-left.visible{opacity:1;transform:none}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal-right.visible{opacity:1;transform:none}
+
+/* ── NAVIGATION ── */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-height);display:flex;align-items:center;transition:background .35s,backdrop-filter .35s,box-shadow .35s}
+#navbar.scrolled{background:rgba(253,246,239,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 2px 24px rgba(43,32,21,.1)}
+#navbar .container{display:flex;align-items:center;justify-content:space-between;width:100%}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:#fff;transition:color .35s;display:flex;align-items:center;gap:8px;white-space:nowrap}
+#navbar.scrolled .nav-logo{color:var(--charcoal)}
+.nav-logo span{font-size:1.4rem}
+.nav-links{display:flex;align-items:center;gap:8px;list-style:none}
+.nav-links a{padding:8px 16px;border-radius:50px;font-weight:500;font-size:.9rem;color:rgba(255,255,255,.9);transition:background .2s,color .2s}
+#navbar.scrolled .nav-links a{color:var(--charcoal)}
+.nav-links a:hover,.nav-links a.active{background:rgba(224,123,42,.15);color:var(--saffron)}
+#navbar.scrolled .nav-links a:hover,#navbar.scrolled .nav-links a.active{background:rgba(224,123,42,.12);color:var(--saffron)}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:6px;cursor:pointer}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:transform .3s,opacity .3s}
+#navbar.scrolled .hamburger span{background:var(--charcoal)}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+#mobile-menu{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:rgba(253,246,239,.97);backdrop-filter:blur(20px);padding:20px 24px;box-shadow:0 8px 32px rgba(43,32,21,.12);z-index:999}
+#mobile-menu.open{display:block}
+#mobile-menu a{display:block;padding:14px 0;font-weight:500;font-size:1.05rem;color:var(--charcoal);border-bottom:1px solid var(--sand)}
+#mobile-menu a:last-child{border-bottom:none}
+
+/* ── HERO ── */
+#home{position:relative;height:100vh;min-height:600px;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;will-change:transform}
+.hero-bg img{width:100%;height:120%;object-fit:cover;object-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(20,12,5,.72) 0%,rgba(20,12,5,.45) 60%,rgba(30,107,107,.3) 100%)}
+.hero-content{position:relative;z-index:2;max-width:740px;padding-top:80px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(224,123,42,.2);border:1px solid rgba(224,123,42,.5);color:#f5c078;border-radius:50px;padding:6px 18px;font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px;backdrop-filter:blur(6px)}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,7vw,5.2rem);font-weight:800;line-height:1.08;color:#fff;margin-bottom:20px}
+.hero-title em{color:#f5c078;font-style:italic}
+.hero-sub{font-size:clamp(1rem,2.2vw,1.2rem);line-height:1.7;color:rgba(255,255,255,.82);margin-bottom:36px;max-width:560px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.6);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase}
+.scroll-arrow{width:24px;height:24px;border-right:2px solid rgba(255,255,255,.5);border-bottom:2px solid rgba(255,255,255,.5);transform:rotate(45deg);animation:bounce 1.6s infinite}
+@keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(6px)}}
+
+/* ── FEATURED DESTINATIONS ── */
+#featured{padding:100px 0;background:var(--cream)}
+.featured-header{display:flex;flex-direction:column;margin-bottom:60px}
+.cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.dest-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;cursor:pointer}
+.dest-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-hover)}
+.dest-card-img{height:240px;overflow:hidden;position:relative}
+.dest-card-img img{transition:transform .5s ease}
+.dest-card:hover .dest-card-img img{transform:scale(1.06)}
+.dest-card-body{padding:24px}
+.dest-card-name{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--charcoal);margin-bottom:8px}
+.dest-card-desc{font-size:.9rem;line-height:1.6;color:var(--warm-grey);margin-bottom:18px}
+.dest-card-link{color:var(--saffron);font-weight:600;font-size:.9rem;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
+.dest-card-link:hover{gap:10px}
+
+/* ── DESTINATIONS FULL PAGE ── */
+#destinations{padding:100px 0;background:var(--sand)}
+.destinations-header{margin-bottom:60px}
+.dest-full-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.dest-full-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s}
+.dest-full-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-hover)}
+.dest-full-img{height:220px;overflow:hidden;position:relative}
+.dest-full-img img{transition:transform .5s}
+.dest-full-card:hover .dest-full-img img{transform:scale(1.06)}
+.dest-state-badge{position:absolute;top:14px;left:14px;background:rgba(253,246,239,.9);color:var(--charcoal);border-radius:50px;padding:4px 14px;font-size:.75rem;font-weight:600;backdrop-filter:blur(4px)}
+.dest-full-body{padding:22px}
+.dest-full-name{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--charcoal);margin-bottom:10px}
+.dest-full-desc{font-size:.875rem;line-height:1.65;color:var(--warm-grey);margin-bottom:16px}
+.dest-meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.dest-meta-tag{background:var(--sand);border-radius:50px;padding:5px 14px;font-size:.78rem;font-weight:500;color:var(--charcoal);display:flex;align-items:center;gap:5px}
+.dest-price{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--teal);margin-bottom:18px}
+
+/* ── AI PLANNER ── */
+#planner{padding:100px 0;background:var(--charcoal);position:relative;overflow:hidden}
+#planner::before{content:'';position:absolute;top:-120px;right:-120px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(30,107,107,.25),transparent 70%)}
+#planner::after{content:'';position:absolute;bottom:-100px;left:-60px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(224,123,42,.15),transparent 70%)}
+.planner-header{color:#fff;margin-bottom:48px}
+.planner-header .section-title{color:#fff}
+.planner-header .section-sub{color:rgba(255,255,255,.65)}
+.planner-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;position:relative;z-index:1}
+.planner-form-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:36px;backdrop-filter:blur(10px)}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:.85rem;font-weight:600;color:rgba(255,255,255,.75);margin-bottom:8px;letter-spacing:.04em}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-family:'DM Sans',sans-serif;font-size:.95rem;transition:border-color .2s,background .2s;outline:none}
+.form-group input::placeholder{color:rgba(255,255,255,.35)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--saffron);background:rgba(255,255,255,.12)}
+.form-group select option{background:#2b2015;color:#fff}
+.btn-generate{width:100%;padding:15px;background:linear-gradient(135deg,var(--saffron),var(--saffron-dark));color:#fff;border-radius:10px;font-weight:700;font-size:1rem;display:flex;align-items:center;justify-content:center;gap:10px;transition:opacity .25s,transform .2s,box-shadow .25s;margin-top:8px}
+.btn-generate:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 10px 32px rgba(224,123,42,.45)}
+.btn-generate:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.planner-result{position:relative;z-index:1}
+.result-placeholder{height:100%;min-height:280px;border:2px dashed rgba(255,255,255,.15);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.35);text-align:center;padding:32px;gap:14px}
+.result-placeholder-icon{font-size:2.8rem}
+.result-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:32px;backdrop-filter:blur(10px);display:none}
+.result-card.visible{display:block}
+.result-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#f5c078;margin-bottom:16px}
+.result-body{font-size:.9rem;line-height:1.75;color:rgba(255,255,255,.8);white-space:pre-wrap}
+.result-body h2,.result-body h3{font-family:'Playfair Display',serif;color:#f5c078;margin:18px 0 8px}
+.spinner{display:none;width:44px;height:44px;border:3px solid rgba(255,255,255,.15);border-top-color:var(--saffron);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+.spinner.active{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-msg{color:#f5a0a0;font-size:.9rem;margin-top:12px;display:none}
+.error-msg.visible{display:block}
+
+/* ── CONTACT ── */
+#contact{padding:100px 0;background:var(--cream)}
+.contact-wrap{display:grid;grid-template-columns:1fr 1.6fr;gap:60px;align-items:start}
+.contact-info h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--charcoal);margin-bottom:20px}
+.contact-info p{font-size:.95rem;line-height:1.7;color:var(--warm-grey);margin-bottom:28px}
+.contact-detail{display:flex;gap:14px;align-items:flex-start;margin-bottom:18px}
+.contact-icon{width:42px;height:42px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.contact-detail-text{font-size:.9rem;color:var(--warm-grey);line-height:1.5}
+.contact-detail-text strong{display:block;color:var(--charcoal);margin-bottom:2px}
+.contact-form-card{background:#fff;border-radius:var(--radius);padding:40px;box-shadow:var(--shadow)}
+.contact-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.contact-form .fg{margin-bottom:18px}
+.contact-form label{display:block;font-size:.83rem;font-weight:600;color:var(--charcoal);margin-bottom:7px;letter-spacing:.03em}
+.contact-form input,.contact-form select,.contact-form textarea{width:100%;padding:12px 15px;border-radius:10px;border:1.5px solid #e0d4c3;background:#fdf6ef;font-family:'DM Sans',sans-serif;font-size:.92rem;color:var(--charcoal);transition:border-color .2s,box-shadow .2s;outline:none}
+.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{border-color:var(--saffron);box-shadow:0 0 0 3px rgba(224,123,42,.12)}
+.contact-form input.error,.contact-form select.error,.contact-form textarea.error{border-color:#e05c5c;box-shadow:0 0 0 3px rgba(224,92,92,.1)}
+.contact-form textarea{min-height:110px;resize:vertical}
+.contact-form select option{background:#fff}
+.btn-submit{width:100%;padding:15px;background:var(--teal);color:#fff;border-radius:10px;font-weight:700;font-size:1rem;transition:background .25s,transform .2s,box-shadow .25s}
+.btn-submit:hover{background:var(--teal-light);transform:translateY(-2px);box-shadow:0 10px 32px rgba(30,107,107,.35)}
+.toast{position:fixed;bottom:32px;right:32px;background:var(--forest);color:#fff;border-radius:12px;padding:16px 24px;font-weight:600;font-size:.95rem;box-shadow:0 8px 32px rgba(0,0,0,.25);z-index:9999;transform:translateY(80px);opacity:0;transition:transform .4s,opacity .4s}
+.toast.show{transform:none;opacity:1}
+
+/* ── FOOTER ── */
+footer{background:#1a110a;color:rgba(255,255,255,.7);padding:64px 0 28px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand .nav-logo{color:#fff;font-size:1.2rem;margin-bottom:14px}
+.footer-brand p{font-size:.88rem;line-height:1.65;color:rgba(255,255,255,.5);max-width:300px}
+.footer-col h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:18px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col ul li a{font-size:.88rem;color:rgba(255,255,255,.55);transition:color .2s}
+.footer-col ul li a:hover{color:var(--saffron)}
+.footer-socials{display:flex;gap:12px;margin-top:20px}
+.social-btn{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:background .2s,transform .2s}
+.social-btn:hover{background:var(--saffron);transform:translateY(-3px)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.8rem;color:rgba(255,255,255,.35)}
+.footer-bottom span{color:rgba(255,255,255,.35)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .dest-full-grid{grid-template-columns:repeat(2,1fr)}
+  .planner-wrap{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .footer-brand{grid-column:1/-1}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .cards-grid{grid-template-columns:1fr}
+  .dest-full-grid{grid-template-columns:1fr}
+  .contact-wrap{grid-template-columns:1fr}
+  .contact-form .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-ctas{flex-direction:column;align-items:flex-start}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+@media(max-width:480px){
+  .container{padding:0 16px}
+  #featured,#destinations,#planner,#contact{padding:72px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav id="navbar">
+  <div class="container">
+    <a href="#home" class="nav-logo"><span>🧭</span> WanderTrails India</a>
+    <ul class="nav-links">
+      <li><a href="#home" id="nl-home">Home</a></li>
+      <li><a href="#destinations" id="nl-destinations">Destinations</a></li>
+      <li><a href="#planner" id="nl-planner">AI Planner</a></li>
+      <li><a href="#contact" id="nl-contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<nav id="mobile-menu">
+  <a href="#home" class="mm-link">Home</a>
+  <a href="#destinations" class="mm-link">Destinations</a>
+  <a href="#planner" class="mm-link">AI Planner</a>
+  <a href="#contact" class="mm-link">Contact</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="home">
+  <div class="hero-bg" id="hero-bg">
+    <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1600" alt="Scenic India landscape"/>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="container">
+    <div class="hero-content" id="hero-content">
+      <div class="hero-badge">✦ Offbeat India Specialists</div>
+      <h1 class="hero-title">India's Road<br/><em>Less Travelled</em></h1>
+      <p class="hero-sub">Discover hidden valleys, ancient ruins, and untouched coastlines with WanderTrails India.</p>
+      <div class="hero-ctas">
+        <a href="#destinations" class="btn-primary">Explore Destinations ↓</a>
+        <a href="#planner" class="btn-outline">Plan My Trip with AI ✨</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-arrow"></div></div>
+</section>
+
+<!-- ── FEATURED DESTINATIONS ── -->
+<section id="featured">
+  <div class="container">
+    <div class="featured-header reveal">
+      <div class="section-label">Curated For You</div>
+      <h2 class="section-title">Handpicked Escapes</h2>
+      <p class="section-sub">Four extraordinary corners of India waiting to be explored by the curious traveller.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="dest-card reveal" style="transition-delay:.05s">
+        <div class="dest-card-img"><img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800" alt="Spiti Valley"/></div>
+        <div class="dest-card-body">
+          <div class="dest-card-name">Spiti Valley</div>
+          <p class="dest-card-desc">A high-altitude cold desert where ancient monasteries cling to crumbling cliffs and the silence is absolute.</p>
+          <a href="#destinations" class="dest-card-link">Explore → </a>
+        </div>
+      </div>
+      <div class="dest-card reveal" style="transition-delay:.1s">
+        <div class="dest-card-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800" alt="Majuli Island"/></div>
+        <div class="dest-card-body">
+          <div class="dest-card-name">Majuli Island</div>
+          <p class="dest-card-desc">The world's largest river island, home to Vaishnavite monasteries, mask-makers, and sweeping Brahmaputra views.</p>
+          <a href="#destinations" class="dest-card-link">Explore → </a>
+        </div>
+      </div>
+      <div class="dest-card reveal" style="transition-delay:.15s">
+        <div class="dest-card-img"><img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800" alt="Sandakphu Trek"/></div>
+        <div class="dest-card-body">
+          <div class="dest-card-name">Sandakphu Trek</div>
+          <p class="dest-card-desc">Stand atop West Bengal's highest peak and witness four of the world's five tallest mountains on the horizon.</p>
+          <a href="#destinations" class="dest-card-link">Explore → </a>
+        </div>
+      </div>
+      <div class="dest-card reveal" style="transition-delay:.2s">
+        <div class="dest-card-img"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Gokarna"/></div>
+        <div class="dest-card-body">
+          <div class="dest-card-name">Gokarna</div>
+          <p class="dest-card-desc">A temple town with pristine secret beaches, clifftop sunsets, and a serenity that Goa left behind long ago.</p>
+          <a href="#destinations" class="dest-card-link">Explore → </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DESTINATIONS FULL ── -->
+<section id="destinations">
+  <div class="container">
+    <div class="destinations-header reveal">
+      <div class="section-label">Explore India</div>
+      <h2 class="section-title">All Destinations</h2>
+      <p class="section-sub">Every destination hand-selected for its raw beauty, cultural depth, and that irreplaceable feeling of discovery.</p>
+    </div>
+    <div class="dest-full-grid">
+      <!-- Spiti -->
+      <div class="dest-full-card reveal" style="transition-delay:.05s">
+        <div class="dest-full-img">
+          <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800" alt="Spiti Valley"/>
+          <div class="dest-state-badge">Himachal Pradesh</div>
+        </div>
+        <div class="dest-full-body">
+          <div class="dest-full-name">Spiti Valley</div>
+          <p class="dest-full-desc">Nestled at 12,500 ft, Spiti is India's last frontier — a lunar landscape of stark beauty. Ancient monasteries like Key and Tabo sit atop ridgelines, while the crisp mountain air carries the scent of juniper and history.</p>
+          <div class="dest-meta">
+            <span class="dest-meta-tag">🗓 Oct – Mar</span>
+            <span class="dest-meta-tag">🥾 Adventure</span>
+          </div>
+          <div class="dest-price">From ₹14,999 per person</div>
+          <a href="#contact" class="btn-teal">Book Now</a>
+        </div>
+      </div>
+      <!-- Majuli -->
+      <div class="dest-full-card reveal" style="transition-delay:.1s">
+        <div class="dest-full-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800" alt="Majuli Island"/>
+          <div class="dest-state-badge">Assam</div>
+        </div>
+        <div class="dest-full-body">
+          <div class="dest-full-name">Majuli Island</div>
+          <p class="dest-full-desc">The world's largest river island floats in the Brahmaputra, a living museum of Assamese culture. Watch traditional mask-makers at work in sattras (monasteries) and cycle through paddy fields at golden hour.</p>
+          <div class="dest-meta">
+            <span class="dest-meta-tag">🗓 Oct – Mar</span>
+            <span class="dest-meta-tag">🎭 Cultural</span>
+          </div>
+          <div class="dest-price">From ₹9,499 per person</div>
+          <a href="#contact" class="btn-teal">Book Now</a>
+        </div>
+      </div>
+      <!-- Sandakphu -->
+      <div class="dest-full-card reveal" style="transition-delay:.15s">
+        <div class="dest-full-img">
+          <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800" alt="Sandakphu"/>
+          <div class="dest-state-badge">West Bengal</div>
+        </div>
+        <div class="dest-full-body">
+          <div class="dest-full-name">Sandakphu Trek</div>
+          <p class="dest-full-desc">At 11,941 ft, Sandakphu is the only spot in India where you can see Everest, Kangchenjunga, Lhotse, and Makalu together. The trek through Singalila National Park rewards you with rhododendron forests and cloud-ocean sunrises.</p>
+          <div class="dest-meta">
+            <span class="dest-meta-tag">🗓 Apr – Jun, Oct – Dec</span>
+            <span class="dest-meta-tag">🏔 Trek</span>
+          </div>
+          <div class="dest-price">From ₹12,499 per person</div>
+          <a href="#contact" class="btn-teal">Book Now</a>
+        </div>
+      </div>
+      <!-- Gokarna -->
+      <div class="dest-full-card reveal" style="transition-delay:.2s">
+        <div class="dest-full-img">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Gokarna"/>
+          <div class="dest-state-badge">Karnataka</div>
+        </div>
+        <div class="dest-full-body">
+          <div class="dest-full-name">Gokarna</div>
+          <p class="dest-full-desc">A sacred temple town that guards beaches no tourist map has fully tamed. Hike the coastal trail between Om Beach and Half Moon Beach for clifftop vistas, or kayak to secret coves accessible only by sea at low tide.</p>
+          <div class="dest-meta">
+            <span class="dest-meta-tag">🗓 Oct – Mar</span>
+            <span class="dest-meta-tag">🏖 Beach</span>
+          </div>
+          <div class="dest-price">From ₹8,499 per person</div>
+          <a href="#contact" class="btn-teal">Book Now</a>
+        </div>
+      </div>
+      <!-- Dzukou Valley -->
+      <div class="dest-full-card reveal" style="transition-delay:.25s">
+        <div class="dest-full-img">
+          <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=800" alt="Dzukou Valley"/>
+          <div class="dest-state-badge">Nagaland</div>
+        </div>
+        <div class="dest-full-body">
+          <div class="dest-full-name">Dzukou Valley</div>
+          <p class="dest-full-desc">Dubbed the "Valley of Flowers of the Northeast," Dzukou blooms from June to September with rare lily species found nowhere else on Earth. The 6 km trek rewards with a hidden valley so serene it feels like another dimension.</p>
+          <div class="dest-meta">
+            <span class="dest-meta-tag">🗓 Jun – Sep</span>
+            <span class="dest-meta-tag">🌸 Nature</span>
+          </div>
+          <div class="dest-price">From ₹11,999 per person</div>
+          <a href="#contact" class="btn-teal">Book Now</a>
+        </div>
+      </div>
+      <!-- Tirthan Valley -->
+      <div class="dest-full-card reveal" style="transition-delay:.3s">
+        <div class="dest-full-img">
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800" alt="Tirthan Valley"/>
+          <div class="dest-state-badge">Himachal Pradesh</div>
+        </div>
+        <div class="dest-full-body">
+          <div class="dest-full-name">Tirthan Valley</div>
+          <p class="dest-full-desc">The Tirthan river carves through apple orchards and cedar forests on the edge of Great Himalayan National Park. Fly-fish for trout, trek to rainbow waterfalls, and sleep in heritage homestays with fireside storytelling.</p>
+          <div class="dest-meta">
+            <span class="dest-meta-tag">🗓 Mar – Jun, Sep – Nov</span>
+            <span class="dest-meta-tag">🎣 Leisure</span>
+          </div>
+          <div class="dest-price">From ₹10,999 per person</div>
+          <a href="#contact" class="btn-teal">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AI PLANNER ── -->
+<section id="planner">
+  <div class="container">
+    <div class="planner-header reveal">
+      <div class="section-label" style="color:#f5c078">AI-Powered</div>
+      <h2 class="section-title">Plan Your Journey with AI</h2>
+      <p class="section-sub">Tell us where you want to go and for how many days. Our AI will craft a personalised day-by-day itinerary just for you.</p>
+    </div>
+    <div class="planner-wrap">
+      <div class="planner-form-card reveal-left">
+        <div class="form-group">
+          <label for="ai-dest">Destination</label>
+          <input type="text" id="ai-dest" placeholder="e.g. Spiti Valley, Gokarna…"/>
+        </div>
+        <div class="form-group">
+          <label for="ai-days">Number of Days</label>
+          <input type="number" id="ai-days" min="1" max="14" placeholder="e.g. 5"/>
+        </div>
+        <div class="form-group">
+          <label for="ai-style">Travel Style</label>
+          <select id="ai-style">
+            <option value="Adventure">Adventure</option>
+            <option value="Cultural">Cultural</option>
+            <option value="Relaxation">Relaxation</option>
+            <option value="Family">Family</option>
+          </select>
+        </div>
+        <button class="btn-generate" id="btn-generate">Generate Itinerary ✨</button>
+        <p class="error-msg" id="ai-error"></p>
+      </div>
+      <div class="planner-result reveal-right">
+        <div class="result-placeholder" id="result-placeholder">
+          <div class="result-placeholder-icon">🗺️</div>
+          <p>Your personalised itinerary will appear here after you generate it.</p>
+        </div>
+        <div class="spinner" id="ai-spinner"></div>
+        <div class="result-card" id="result-card">
+          <div class="result-title" id="result-title"></div>
+          <div class="result-body" id="result-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="contact-info reveal-left">
+        <div class="section-label">Get In Touch</div>
+        <h2 class="section-title">Start Your Adventure</h2>
+        <p class="section-sub">Fill in your details and our travel experts will get back to you within 24 hours.</p>
+        <div class="contact-detail">
+          <div class="contact-icon">📧</div>
+          <div class="contact-detail-text"><strong>Email Us</strong>hello@wandertrailsindia.com</div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">📞</div>
+          <div class="contact-detail-text"><strong>Call Us</strong>+91 98765 43210</div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">🕐</div>
+          <div class="contact-detail-text"><strong>Response Time</strong>Within 24 hours</div>
+        </div>
+      </div>
+      <div class="contact-form-card reveal-right">
+        <form id="contact-form" class="contact-form" novalidate>
+          <div class="form-row">
+            <div class="fg">
+              <label for="c-name">Full Name *</label>
+              <input type="text" id="c-name" placeholder="Arjun Sharma" required/>
+            </div>
+            <div class="fg">
+              <label for="c-email">Email Address *</label>
+              <input type="email" id="c-email" placeholder="arjun@email.com" required/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="fg">
+              <label for="c-phone">Phone Number</label>
+              <input type="tel" id="c-phone" placeholder="+91 98765 43210"/>
+            </div>
+            <div class="fg">
+              <label for="c-dest">Destination of Interest *</label>
+              <select id="c-dest" required>
+                <option value="">— Select —</option>
+                <option>Spiti Valley</option>
+                <option>Majuli Island</option>
+                <option>Sandakphu Trek</option>
+                <option>Gokarna</option>
+                <option>Dzukou Valley</option>
+                <option>Tirthan Valley</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="fg">
+              <label for="c-from">Travel From *</label>
+              <input type="date" id="c-from" required/>
+            </div>
+            <div class="fg">
+              <label for="c-to">Travel To *</label>
+              <input type="date" id="c-to" required/>
+            </div>
+          </div>
+          <div class="fg">
+            <label for="c-travellers">Number of Travellers *</label>
+            <input type="number" id="c-travellers" min="1" placeholder="e.g. 2" required/>
+          </div>
+          <div class="fg">
+            <label for="c-requests">Special Requests</label>
+            <textarea id="c-requests" placeholder="Any dietary requirements, accessibility needs, special occasions…"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Submit Inquiry 🚀</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">🧭 WanderTrails India</div>
+        <p>We believe every hidden corner of India has a story worth discovering. Let us be your guide to the extraordinary.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn" aria-label="Instagram">📸</a>
+          <a href="#" class="social-btn" aria-label="Facebook">📘</a>
+          <a href="#" class="social-btn" aria-label="YouTube">▶️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#planner">AI Planner</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@wandertrailsindia.com">hello@wandertrailsindia.com</a></li>
+          <li><a href="tel:+919876543210">+91 98765 43210</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 WanderTrails India. All rights reserved.</span>
+      <span>Crafted with ♥ for India's hidden gems</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ── NAVBAR SCROLL & ACTIVE LINKS ── */
+const navbar=document.getElementById('navbar');
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>60){navbar.classList.add('scrolled')}
+  else{navbar.classList.remove('scrolled')}
+  // parallax
+  const heroBg=document.getElementById('hero-bg');
+  if(heroBg)heroBg.style.transform=`translateY(${window.scrollY*0.35}px)`;
+  // active nav
+  let current='';
+  sections.forEach(s=>{
+    if(window.scrollY>=s.offsetTop-120)current=s.id;
+  });
+  navLinks.forEach(a=>{
+    a.classList.remove('active');
+    if(a.getAttribute('href')==='#'+current)a.classList.add('active');
+  });
+},{passive:true});
+
+/* ── HAMBURGER ── */
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobile-menu');
+hamburger.addEventListener('click',()=>{
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+document.querySelectorAll('.mm-link').forEach(l=>{
+  l.addEventListener('click',()=>{
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+/* ── HERO ENTRANCE ANIMATION ── */
+window.addEventListener('load',()=>{
+  const hc=document.getElementById('hero-content');
+  if(hc){hc.style.opacity='0';hc.style.transform='translateY(30px)';hc.style.transition='opacity .8s ease,transform .8s ease';
+    setTimeout(()=>{hc.style.opacity='1';hc.style.transform='none';},200);
+  }
+});
+
+/* ── INTERSECTION OBSERVER ── */
+const revealEls=document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+revealEls.forEach(el=>obs.observe(el));
+
+/* ── AI PLANNER ── */
+const btnGen=document.getElementById('btn-generate');
+const spinner=document.getElementById('ai-spinner');
+const resultCard=document.getElementById('result-card');
+const resultPlaceholder=document.getElementById('result-placeholder');
+const resultTitle=document.getElementById('result-title');
+const resultBody=document.getElementById('result-body');
+const aiError=document.getElementById('ai-error');
+
+btnGen.addEventListener('click',async()=>{
+  const dest=document.getElementById('ai-dest').value.trim();
+  const days=parseInt(document.getElementById('ai-days').value)||0;
+  const style=document.getElementById('ai-style').value;
+  if(!dest||days<1||days>14){
+    showError('Please enter a valid destination and number of days (1–14).');
+    return;
+  }
+  aiError.classList.remove('visible');
+  btnGen.disabled=true;
+  resultCard.classList.remove('visible');
+  resultPlaceholder.style.display='none';
+  spinner.classList.add('active');
+
+  const prompt=`Create a detailed ${days}-day travel itinerary for ${dest}, India. Travel style: ${style}. Include: day-by-day activities, local food to try, accommodation type suggestions, and travel tips. Format with clear Day 1, Day 2 headings.`;
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':'','anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1800,messages:[{role:'user',content:prompt}]})
+    });
+    const data=await res.json();
+    if(!res.ok||!data.content){throw new Error(data.error?.message||'API error');}
+    const text=data.content[0]?.text||'';
+    resultTitle.textContent=`🗺️ ${days}-Day ${style} Itinerary — ${dest}`;
+    resultBody.innerHTML=formatItinerary(text);
+    resultCard.classList.add('visible');
+  }catch(err){
+    resultPlaceholder.style.display='flex';
+    showError('Oops! Could not generate the itinerary right now. Please try again shortly.');
+  }finally{
+    spinner.classList.remove('active');
+    btnGen.disabled=false;
+  }
+});
+
+function formatItinerary(text){
+  return text
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/^#{1,3} (.+)$/gm,'<h3 style="font-family:\'Playfair Display\',serif;color:#f5c078;margin:18px 0 8px">$1</h3>')
+    .replace(/^(Day \d+.*?)$/gm,'<h3 style="font-family:\'Playfair Display\',serif;color:#f5c078;margin:18px 0 8px">$1</h3>')
+    .replace(/\n/g,'<br/>');
+}
+
+function showError(msg){
+  aiError.textContent=msg;
+  aiError.classList.add('visible');
+}
+
+/* ── CONTACT FORM ── */
+document.getElementById('contact-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  const required=['c-name','c-email','c-dest','c-from','c-to','c-travellers'];
+  let valid=true;
+  required.forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el.value.trim()){el.classList.add('error');valid=false;}
+    else{el.classList.remove('error');}
+  });
+  if(!valid){showToast('⚠️ Please fill in all required fields.','#c4651a');return;}
+  showToast('Thank you! We\'ll contact you soon 🎉','#2d5a27');
+  this.reset();
+});
+
+function showToast(msg,bg='#2d5a27'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.style.background=bg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),4000);
+}
+
+/* ── Remove error class on input ── */
+document.querySelectorAll('.contact-form input, .contact-form select').forEach(el=>{
+  el.addEventListener('input',()=>el.classList.remove('error'));
+});
+</script>
+</body>
+</html>
